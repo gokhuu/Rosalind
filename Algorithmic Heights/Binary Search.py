@@ -3,10 +3,10 @@ def binary_search(lst, item):
     end_point = len(lst) - 1
 
     while start_point <= end_point:
-        midpoint = (end_point - start_point) // 2
+        midpoint = start_point + (end_point - start_point) // 2
         midpoint_val = lst[midpoint]
         if item == midpoint_val:
-            return midpoint
+            return midpoint + 1
         elif item < midpoint_val:
             end_point = midpoint - 1
         else:
@@ -15,16 +15,11 @@ def binary_search(lst, item):
     return -1
 
 
-file = open('rosalind_bins.txt', 'r')
+file = open('rosalind_bin.txt', 'r')
 n = file.readline()
 m = file.readline()
 
-A_n = file.readline()
-A_m = file.readline()
+A = file.readline().strip().split()
+k = file.readline().strip().split()
 
-ans = []
-
-for i in A_m:
-    ans.append(binary_search(A_n, i))
-
-print(*ans)
+print(*[binary_search(A, i) for i in k])
