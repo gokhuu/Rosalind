@@ -1,33 +1,39 @@
-def binary_search(A, item, start=None, stop=None):
-    start = 0 if start is None else start
-    stop = len(A) - 1 if stop is None else stop
-
-    if stop < start:
-        return -1
-
-    else:
-        mid = (start + stop) // 2
-        if A[mid] > item:
-            return binary_search(A, item, start, mid - 1)
-        elif A[mid] < item:
-            return binary_search(A, item, mid, stop)
-        else:
-            return mid
+from __future__ import print_function, division
+import os
+import math
 
 
-'''
-file = open('rosalind_bins.txt', 'r')
-n = file.readline()
-m = file.readline()
+def binsearch(A, q):
+    n = len(A)
 
-A = file.readline().strip().split()
-k = file.readline().strip().split()
-'''
+    low_i = 0
+    high_i = n - 1
+    mid = math.floor(n / 2)
 
-A = [10, 20, 30, 40, 50]
-k = [40, 10, 35, 15, 40, 20]
-ind = []
-for i in k:
-    ind.append(binary_search(A, i))
+    prev = -1, -1, -1
+    while (low_i, mid, high_i) != prev:
+        prev = low_i, mid, high_i
 
-print(*ind)
+        if q == A[low_i]:
+            return low_i + 1
+        elif q == A[high_i]:
+            return high_i + 1
+        elif q == A[mid]:
+            return mid + 1
+        elif q < A[mid]:
+            high_i = mid
+        elif q > A[mid]:
+            low_i = mid
+
+        mid = math.floor((high_i + low_i) / 2)
+
+    return -1
+
+
+if __name__ == "__main__":
+    with open(os.path.join('rosalind_bins.txt')) as dataset:
+        n = int(dataset.readline().strip())
+        m = int(dataset.readline().strip())
+        A = [int(r) for r in dataset.readline().strip().split()]
+        query = [int(r) for r in dataset.readline().strip().split()]
+        print(*[binsearch(A, q) for q in query])
