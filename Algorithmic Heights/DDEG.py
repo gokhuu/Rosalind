@@ -116,7 +116,7 @@ def get_sum_neighbors(num_vert,sum_dict,n_dict):
 
     return sum_lst
 ##################################################################################
-f = open('Rosalind\DDEG_Input.txt','r')
+f = open('Rosalind\Algorithmic Heights\DDEG_Input.txt','r')
 given = []
 for line in f:
     temp = line.split()
